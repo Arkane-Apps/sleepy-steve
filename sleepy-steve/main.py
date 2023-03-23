@@ -1,13 +1,14 @@
 from uvicorn import run as uvicorn_run
 
 from api import sleepy_steve_api_factory
-from clients.downstream import DownstreamClient
+from clients import MinecraftServerDaemon
 
 
 def run_api():
-    downstream_server = DownstreamClient(hostname="0.0.0.0", port=25565)
+    live_server_daemon = MinecraftServerDaemon(hostname="0.0.0.0", port=25565)
+
     uvicorn_run(
-        sleepy_steve_api_factory(downstream_server),
+        sleepy_steve_api_factory(live_server_daemon),
         host="0.0.0.0",
         port=8080,
         log_level="info",

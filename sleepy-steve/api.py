@@ -1,11 +1,10 @@
 from typing import List
 from fastapi import FastAPI
 
-from clients.downstream import DownstreamClient
-from clients.gobetween import IntString, RoutesModel
+from clients import IntString, MinecraftServerDaemon, RoutesModel
 
 
-def sleepy_steve_api_factory(downstream_client: DownstreamClient):
+def sleepy_steve_api_factory(live_server_daemon: MinecraftServerDaemon):
     api = FastAPI()
 
     @api.get("/server/routes")
@@ -21,6 +20,6 @@ def sleepy_steve_api_factory(downstream_client: DownstreamClient):
 
     @api.get("/server/status")
     def get_status() -> bool:
-        return downstream_client.server_online()
+        return live_server_daemon.server_online()
 
     return api
