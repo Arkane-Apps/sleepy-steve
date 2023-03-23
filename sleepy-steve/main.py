@@ -5,7 +5,9 @@ from clients import MinecraftServerDaemon
 
 
 def run_api():
-    live_server_daemon = MinecraftServerDaemon(hostname="0.0.0.0", port=25565)
+    live_server_daemon = MinecraftServerDaemon(
+        hostname="0.0.0.0", port=25565, server_dir="/app", server_script_name="foo.sh"
+    )
 
     uvicorn_run(
         sleepy_steve_api_factory(live_server_daemon),
